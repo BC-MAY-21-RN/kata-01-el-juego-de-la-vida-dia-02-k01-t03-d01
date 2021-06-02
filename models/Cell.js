@@ -1,7 +1,7 @@
 const { LIVE, DEAD } = require('./states');
 
 
-module.export = class Cell {
+module.exports = class Cell {
 
     constructor(initialState = DEAD) {
         this.currentState = initialState;

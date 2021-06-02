@@ -1,18 +1,19 @@
 const { LIVE, DEAD } = require('./states');
 const Cell = require('./Cell');
 
-module.export = class Board {
+module.exports = class Board {
     constructor(rows, colums, model) {
         this.rows = rows;
         this.colums = colums;
         this.model = model;
         this.board = null;
+        this.generateBoard();
     }
 
     generateBoard() {
         this.board = this.model.split('\n');
         this.board = this.board.map(row => row.split(''));
-        this.board = board.map(row => {
+        this.board = this.board.map(row => {
             return row.map(col => {
                 return col === DEAD ? new Cell(DEAD) : new Cell(LIVE)
             })
@@ -54,7 +55,30 @@ module.export = class Board {
                 }
             }
         }
+        
+    }
+    generateNewGeneration(){
+        for (let i = 0; i<this.board.length; i++){
+            for (let j = 0; j<this.board[i].length; j++){
+                this.board[i][j].setNewState();
+            }
+        }
+        for (let i = 0; i<this.board.length; i++){
+            for (let j = 0; j<this.board[i].length; j++){
+                this.board[i][j].currentState = this.board[i][j].nextState;
+            }
+        }  
+    }
 
+    printBoard(){
+        let print = "";
+        for (let i = 0; i<this.board.length; i++){
+            for (let j = 0; j<this.board[i].length; j++){
+                print += this.board[i][j].currentState;
+            }
+            print += "\n";
+        }
+        return print;
     }
 
 }

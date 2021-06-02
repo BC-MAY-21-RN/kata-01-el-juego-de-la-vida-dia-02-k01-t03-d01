@@ -1,7 +1,7 @@
 const LIVE = '*';
 const DEAD = '.';
 
-module.export = {
+module.exports = {
     LIVE,
     DEAD
 }
