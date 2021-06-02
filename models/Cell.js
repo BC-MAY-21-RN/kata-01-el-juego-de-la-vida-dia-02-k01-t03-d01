@@ -1,26 +1,27 @@
-const {LIVE,DEAD} = require('./states');
+const { LIVE, DEAD } = require('./states');
 
 
-module.export = class Cell{
-    constructor(initialState = DEAD, neighbors = []) {
+module.export = class Cell {
+
+    constructor(initialState = DEAD) {
         this.currentState = initialState;
-        this.neighbors = neighbors;
+        this.neighbors = [];
         this.nextState = null;
     }
 
-    setNewState(){
+    setNewState() {
         let lives = 0;
-        this.neighbors.forEach( el =>{
-            if(el.currentState===LIVE){
+        this.neighbors.forEach(el => {
+            if (el.currentState === LIVE) {
                 lives++;
             }
         });
-        
-        if(this.currentState === DEAD && lives === 3){
+
+        if (this.currentState === DEAD && lives === 3) {
             this.nextState = LIVE;
-        }else if(this.currentState === LIVE && (lives<2 || lives>3)){
+        } else if (this.currentState === LIVE && (lives < 2 || lives > 3)) {
             this.nextState = DEAD;
-        }else{
+        } else {
             this.nextState = this.currentState;
         }
     }
